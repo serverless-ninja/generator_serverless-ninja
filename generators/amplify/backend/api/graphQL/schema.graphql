@@ -1,0 +1,265 @@
+"""
+A Tenant allow us to restrict and filter access to all entities.
+A Tenant can have 3 kinds of user:
+    - The tenant owner: the user who create the tenant and can do everything.
+    - The tenant guest: a user which has been invited by the owner to manage the tenant entities.
+    - The tenant end user: a user which has been invited by the owner or the guest and can use the tenant entities.
+The tenant owner and guest can switch between the tenant they can see.
+The tenant end user cannot switch between tenant.
+A tenant can have only one owner.
+The tenant could contains all project settings. (eg: payment, api integrations, ect ...).
+"""
+type Tenant
+  @model
+  @key(
+    name: "tenantByUpdateAt"
+    fields: ["id", "updatedAt"]
+    queryField: "getTenantByUpdateAt"
+  )
+  @auth(
+    rules: [
+      # Allow the ADMIN to do all
+      {
+        allow: groups
+        groups: ["ADMIN"]
+        operations: [create, update, delete, read]
+      }
+      # Allow the owner to do all
+      {
+        allow: owner
+        ownerField: "userId"
+        operations: [create, update, delete, read]
+      }
+      # Allow the user which have choose this tenant in its preferences to read it
+      {
+        allow: owner
+        identityClaim: "tenantId"
+        ownerField: "id"
+        operations: [read]
+      }
+    ]
+  ) {
+  """
+  The tenant Id
+  """
+  id: ID!
+  """
+  The user Id of the owner of the tenant
+  """
+  userId: String!
+  """
+  The cognito user details (email, phone, ...)
+  """
+  cognitoUser: CognitoUser @function(name: "getCognitoUser-${env}")
+  """
+  The tenant title
+  """
+  title: String!
+  """
+  The last updated Date
+  """
+  updatedAt: AWSDateTime
+}
+
+"""
+The current tenant choose by the owner user and guest user. The end user cannot switch between tenant.
+This will be used during the token generation to add custom attributes to the id token.
+If the preferences does not exists, it will be created during the token generation.
+"""
+type TenantUserPreferences
+  @model
+  @key(fields: ["userId"])
+  @auth(
+    rules: [
+      # Allow the owner to do update his tenant id to switch between tenant (need refresh token)
+      { 
+        allow: owner, 
+        ownerField: "userId",
+        operations: [update] 
+      }
+    ]
+  ) {
+  """
+  The user Id
+  """
+  userId: String!
+  """
+  The tenant id the users belongs to
+  """
+  tenantId: ID
+}
+
+"""
+The list of guest users for each tenant.
+Only if you are owner of the tenant you can add users to the tenant.
+If you are guest of the tenant, you can see the others guest users.
+"""
+type GuestUser
+  @model(mutations: null, subscriptions: null)
+  @key(fields: ["tenantId", "userId"])
+  @key(
+    name: "GuestUserByTenant"
+    fields: ["tenantId", "updatedAt"]
+    queryField: "getGuestUserByTenant"
+  )
+  @auth(
+    rules: [
+      # Allow the owner of tenant to do all
+      {
+        allow: owner
+        identityClaim: "ownerTenantId"
+        ownerField: "tenantId"
+        operations: [create, update, delete, read]
+      }
+      # Allow the guest user of the tenant to read
+      {
+        allow: owner
+        identityClaim: "guestTenantId"
+        ownerField: "tenantId"
+        operations: [read]
+      }
+    ]
+  ) {
+  """
+  The tenant id the users belongs to
+  """
+  tenantId: ID!
+  """
+  The user id of the guest user
+  """
+  userId: String!
+  """
+  The cognito user details (email, phone, ...)
+  """
+  cognitoUser: CognitoUser @function(name: "getCognitoUser-${env}")
+  """
+  The last updated Date
+  """
+  updatedAt: AWSDateTime
+}
+
+"""
+The end user who can access to the tenant entities
+The end user cannot switch to others tenants
+The owner and guest user can manage the end user
+"""
+type EndUser
+  @model(mutations: null, subscriptions: null)
+  @key(fields: ["tenantId", "userId"])
+  @key(
+    name: "EndUserByTenant"
+    fields: ["tenantId", "updatedAt"]
+    queryField: "getEndUserByTenant"
+  )
+  @auth(
+    rules: [
+      # Allow the owner of tenant to do all
+      {
+        allow: owner
+        identityClaim: "ownerTenantId"
+        ownerField: "tenantId"
+        operations: [create, update, delete, read]
+      }
+      # Allow the guest user of the tenant to all
+      {
+        allow: owner
+        identityClaim: "guestTenantId"
+        ownerField: "tenantId"
+        operations: [create, update, delete, read]
+      }
+    ]
+  ) {
+  """
+  The tenant id the users belongs to
+  """
+  tenantId: ID!
+  """
+  The user id of the end user
+  """
+  userId: String!
+  """
+  The cognito user details (email, phone, ...)
+  """
+  cognitoUser: CognitoUser @function(name: "getCognitoUser-${env}")
+  """
+  The last updated Date
+  """
+  updatedAt: AWSDateTime
+}
+
+type Pokemon
+  @model
+  @key(
+    name: "PokemonByTenant"
+    fields: ["tenantId", "updatedAt"]
+    queryField: "getPokemonByTenant"
+  )
+  @auth(
+    rules: [
+      # Allow the user to manage the pokemon for the tenant it belongs to
+      {
+        allow: owner
+        ownerField: "tenantId"
+        identityClaim: "tenantId"
+        operations: [create, update, delete, read]
+      }
+    ]
+  ) {
+  id: ID!
+  name: String!
+  picture: S3Object!
+  tenantId: ID!
+  updatedAt: AWSDateTime
+}
+
+type CognitoUser {
+  email: String
+  phone: String
+  createDate: AWSDateTime
+  lastModifiedDate: AWSDateTime
+  enabled: Boolean
+}
+
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
+  protectedIdentityId: String
+}
+
+input CreateGuestUserInput {
+  emailOrPhone: String!
+  tenantId: String!
+}
+
+input UpdateGuestUserInput {
+  userId: String!
+  enabled: Boolean
+}
+
+input DeleteGuestUserInput {
+  userId: String!
+}
+
+input CreateEndUserInput {
+  emailOrPhone: String!
+  tenantId: String!
+}
+
+input UpdateEndUserInput {
+  userId: String!
+  enabled: Boolean
+}
+
+input DeleteEndUserInput {
+  userId: String!
+}
+
+type Mutation {
+  createGuestUser(input: CreateGuestUserInput!): GuestUser @function(name: "manageGuestUser-${env}")
+  updateGuestUser(input: UpdateGuestUserInput!): GuestUser @function(name: "manageGuestUser-${env}")
+  deleteGuestUser(input: DeleteGuestUserInput!): GuestUser @function(name: "manageGuestUser-${env}")
+  createEndUser(input: CreateEndUserInput!): EndUser @function(name: "manageEndUser-${env}")
+  updateEndUser(input: UpdateEndUserInput!): EndUser @function(name: "manageEndUser-${env}")
+  deleteEndUser(input: DeleteEndUserInput!): EndUser @function(name: "manageEndUser-${env}")
+}
