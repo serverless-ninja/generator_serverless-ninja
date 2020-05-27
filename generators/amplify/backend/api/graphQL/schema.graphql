@@ -11,32 +11,15 @@ The tenant could contains all project settings. (eg: payment, api integrations, 
 """
 type Tenant
   @model
-  @key(
-    name: "tenantByUpdateAt"
-    fields: ["id", "updatedAt"]
-    queryField: "getTenantByUpdateAt"
-  )
+  @key(name: "tenantByUpdateAt", fields: ["id", "updatedAt"], queryField: "getTenantByUpdateAt")
   @auth(
     rules: [
       # Allow the ADMIN to do all
-      {
-        allow: groups
-        groups: ["ADMIN"]
-        operations: [create, update, delete, read]
-      }
+      { allow: groups, groups: ["ADMIN"], operations: [create, update, delete, read] }
       # Allow the owner to do all
-      {
-        allow: owner
-        ownerField: "userId"
-        operations: [create, update, delete, read]
-      }
+      { allow: owner, ownerField: "userId", operations: [create, update, delete, read] }
       # Allow the user which have choose this tenant in its preferences to read it
-      {
-        allow: owner
-        identityClaim: "tenantId"
-        ownerField: "id"
-        operations: [read]
-      }
+      { allow: owner, identityClaim: "tenantId", ownerField: "id", operations: [read] }
     ]
   ) {
   """
@@ -72,11 +55,7 @@ type TenantUserPreferences
   @auth(
     rules: [
       # Allow the owner to do update his tenant id to switch between tenant (need refresh token)
-      { 
-        allow: owner, 
-        ownerField: "userId",
-        operations: [update] 
-      }
+      { allow: owner, ownerField: "userId", operations: [update] }
     ]
   ) {
   """
@@ -97,27 +76,13 @@ If you are guest of the tenant, you can see the others guest users.
 type GuestUser
   @model(mutations: null, subscriptions: null)
   @key(fields: ["tenantId", "userId"])
-  @key(
-    name: "GuestUserByTenant"
-    fields: ["tenantId", "updatedAt"]
-    queryField: "getGuestUserByTenant"
-  )
+  @key(name: "GuestUserByTenant", fields: ["tenantId", "updatedAt"], queryField: "getGuestUserByTenant")
   @auth(
     rules: [
       # Allow the owner of tenant to do all
-      {
-        allow: owner
-        identityClaim: "ownerTenantId"
-        ownerField: "tenantId"
-        operations: [create, update, delete, read]
-      }
+      { allow: owner, identityClaim: "ownerTenantId", ownerField: "tenantId", operations: [create, update, delete, read] }
       # Allow the guest user of the tenant to read
-      {
-        allow: owner
-        identityClaim: "guestTenantId"
-        ownerField: "tenantId"
-        operations: [read]
-      }
+      { allow: owner, identityClaim: "guestTenantId", ownerField: "tenantId", operations: [read] }
     ]
   ) {
   """
@@ -146,27 +111,13 @@ The owner and guest user can manage the end user
 type EndUser
   @model(mutations: null, subscriptions: null)
   @key(fields: ["tenantId", "userId"])
-  @key(
-    name: "EndUserByTenant"
-    fields: ["tenantId", "updatedAt"]
-    queryField: "getEndUserByTenant"
-  )
+  @key(name: "EndUserByTenant", fields: ["tenantId", "updatedAt"], queryField: "getEndUserByTenant")
   @auth(
     rules: [
       # Allow the owner of tenant to do all
-      {
-        allow: owner
-        identityClaim: "ownerTenantId"
-        ownerField: "tenantId"
-        operations: [create, update, delete, read]
-      }
+      { allow: owner, identityClaim: "ownerTenantId", ownerField: "tenantId", operations: [create, update, delete, read] }
       # Allow the guest user of the tenant to all
-      {
-        allow: owner
-        identityClaim: "guestTenantId"
-        ownerField: "tenantId"
-        operations: [create, update, delete, read]
-      }
+      { allow: owner, identityClaim: "guestTenantId", ownerField: "tenantId", operations: [create, update, delete, read] }
     ]
   ) {
   """
@@ -189,20 +140,11 @@ type EndUser
 
 type Pokemon
   @model
-  @key(
-    name: "PokemonByTenant"
-    fields: ["tenantId", "updatedAt"]
-    queryField: "getPokemonByTenant"
-  )
+  @key(name: "PokemonByTenant", fields: ["tenantId", "updatedAt"], queryField: "getPokemonByTenant")
   @auth(
     rules: [
       # Allow the user to manage the pokemon for the tenant it belongs to
-      {
-        allow: owner
-        ownerField: "tenantId"
-        identityClaim: "tenantId"
-        operations: [create, update, delete, read]
-      }
+      { allow: owner, ownerField: "tenantId", identityClaim: "tenantId", operations: [create, update, delete, read] }
     ]
   ) {
   id: ID!
@@ -215,7 +157,7 @@ type Pokemon
 type CognitoUser {
   email: String
   phone: String
-  createDate: AWSDateTime
+  createdDate: AWSDateTime
   lastModifiedDate: AWSDateTime
   enabled: Boolean
 }
