@@ -1,0 +1,27 @@
+{
+    "version": "1",
+    "region": "us-east-1",
+    "userPoolId": "us-east-XXXX",
+    "userName": "XXXXX-XXXX-XXX-XXX-XXXXXXXXXXXXX",
+    "callerContext": {
+        "awsSdkVersion": "aws-sdk-unknown-unknown",
+        "clientId": "XXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    "triggerSource": "VerifyAuthChallengeResponse_Authentication",
+    "request": {
+        "userAttributes": {
+            "sub": "XXXXX-XXXX-XXX-XXX-XXXXXXXXXXXXX",
+            "cognito:user_status": "CONFIRMED",
+            "phone_number_verified": "false",
+            "cognito:phone_number_alias": "+861234567890",
+            "phone_number": "+861234567890"
+        },
+        "privateChallengeParameters": {
+            "secretLoginCode": "123456"
+        },
+        "challengeAnswer": "123456"
+    },
+    "response": {
+        "answerCorrect": null
+    }
+}
