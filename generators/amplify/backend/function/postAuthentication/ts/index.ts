@@ -1,9 +1,9 @@
-import { Callback, CognitoUserPoolTriggerEvent, CognitoUserPoolTriggerHandler } from 'aws-lambda';
+import { Callback, CognitoUserPoolTriggerEvent, CognitoUserPoolTriggerHandler, Context } from 'aws-lambda';
 import { CognitoIdentityServiceProvider } from 'aws-sdk';
 
 const cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider();
 
-export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserPoolTriggerEvent, _, callback: Callback<CognitoUserPoolTriggerEvent>) => {
+export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserPoolTriggerEvent, context: Context, callback: Callback<CognitoUserPoolTriggerEvent>) => {
   if (event.userName) {
     // if account created with phone
     if ('cognito:phone_number_alias' in event.request.userAttributes) {
