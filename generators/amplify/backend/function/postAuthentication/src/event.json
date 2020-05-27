@@ -1,0 +1,21 @@
+{
+    "version": "1",
+    "region": "us-east-1",
+    "userPoolId": "us-east-XXXX",
+    "userName": "XXXXX-XXXX-XXX-XXX-XXXXXXXXXXXXX",
+    "callerContext": {
+        "awsSdkVersion": "aws-sdk-unknown-unknown",
+        "clientId": "XXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    "triggerSource": "PostAuthentication_Authentication",
+    "request": {
+        "userAttributes": {
+            "sub": "XXXXX-XXXX-XXX-XXX-XXXXXXXXXXXXX",
+            "cognito:user_status": "CONFIRMED",
+            "phone_number_verified": "false",
+            "cognito:email_alias": "test@example.com",
+            "phone_number": "+861234567890"
+        }
+    },
+    "response": {}
+}
