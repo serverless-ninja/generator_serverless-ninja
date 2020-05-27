@@ -1,6 +1,5 @@
 import { CognitoUserPoolTriggerEvent, CognitoUserPoolTriggerHandler, Context } from 'aws-lambda';
 import { randomDigits } from 'crypto-secure-random-digit';
-import i18n from 'i18n';
 import { sendEmail } from './send_email';
 import { sendSms } from './send_sms';
 
@@ -38,11 +37,11 @@ export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserP
         // send SMS with the code
         await sendSms(phoneNumber, secretLoginCode, PINPOINT_PROJECT_ID, REGION);
         // This is sent back to the client app, so they know if it's email or phone challenge
-        Object.assign(event.response.publicChallengeParameters, { phone: phoneNumber });
+        Object.assign(event.response, { publicChallengeParameters: { phone: phoneNumber } });
         // Add the secret login code to the private challenge parameters so it can be verified by the "Verify Auth Challenge Response" trigger
-        Object.assign(event.response.privateChallengeParameters, { secretLoginCode });
+        Object.assign(event.response, { privateChallengeParameters: secretLoginCode });
         // Add the secret login code to the session so it is available in the next
-        Object.assign(event.response.challengeMetadata, `CODE-${secretLoginCode}`);
+        Object.assign(event.response, { challengeMetadata: `CODE-${secretLoginCode}` });
       }
       // if account created with email
       if ('cognito:email_alias' in event.request.userAttributes) {
@@ -52,11 +51,11 @@ export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserP
         // send email with the code
         await sendEmail(emailAddress, secretLoginCode, PINPOINT_PROJECT_ID, REGION).catch();
         // This is sent back to the client app, so they know if it's email or phone challenge
-        Object.assign(event.response.publicChallengeParameters, { email: emailAddress });
+        Object.assign(event.response, { publicChallengeParameters: { email: emailAddress } });
         // Add the secret login code to the private challenge parameters so it can be verified by the "Verify Auth Challenge Response" trigger
-        Object.assign(event.response.privateChallengeParameters, { secretLoginCode });
+        Object.assign(event.response, { privateChallengeParameters: secretLoginCode });
         // Add the secret login code to the session so it is available in the next
-        Object.assign(event.response.challengeMetadata, `CODE-${secretLoginCode}`);
+        Object.assign(event.response, { challengeMetadata: `CODE-${secretLoginCode}` });
       }
     } else {
       // we already have session. So we don't generate digits again but re-use the code from the current session.
@@ -69,16 +68,16 @@ export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserP
         if (previousSecretLoginCodeRegexExecArray !== null && previousSecretLoginCodeRegexExecArray.length === 2) {
           // we get the previous secret code and resend it
           const previousSecretLoginCode = previousSecretLoginCodeRegexExecArray[1];
-          Object.assign((event.response.privateChallengeParameters, { secretLoginCode: previousSecretLoginCode }));
-          Object.assign(event.response.challengeMetadata, `CODE-${previousSecretLoginCode}`);
+          Object.assign((event.response, { privateChallengeParameters: { secretLoginCode: previousSecretLoginCode } }));
+          Object.assign(event.response, { challengeMetadata: `CODE-${previousSecretLoginCode}` });
           // we send back the phone or email to client
           if ('cognito:phone_number_alias' in event.request.userAttributes) {
             const phoneNumber = event.request.userAttributes['cognito:phone_number_alias'];
-            Object.assign(event.response.publicChallengeParameters, { phone: phoneNumber });
+            Object.assign(event.response, { publicChallengeParameters: { phone: phoneNumber } });
           }
           if ('cognito:email_alias' in event.request.userAttributes) {
             const emailAddress = event.request.userAttributes['cognito:email_alias'];
-            Object.assign(event.response.publicChallengeParameters, { email: emailAddress });
+            Object.assign(event.response, { publicChallengeParameters: { email: emailAddress } });
           }
         }
       }
