@@ -1,0 +1,22 @@
+{
+    "version": "1",
+    "region": "us-east-1",
+    "userPoolId": "us-east-XXXX",
+    "userName": "XXXXX-XXXX-XXX-XXX-XXXXXXXXXXXXX",
+    "callerContext": {
+        "awsSdkVersion": "aws-sdk-unknown-unknown",
+        "clientId": "XXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    "triggerSource": "PreSignUp_SignUp",
+    "request": {
+        "userAttributes": {
+            "phone_number": "+861234567890"
+        },
+        "validationData": null
+    },
+    "response": {
+        "autoConfirmUser": false,
+        "autoVerifyEmail": false,
+        "autoVerifyPhone": false
+    }
+}
