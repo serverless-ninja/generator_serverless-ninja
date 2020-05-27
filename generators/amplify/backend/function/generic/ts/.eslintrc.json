@@ -20,6 +20,7 @@
      * @description rules of eslint official
      */
     "import/prefer-default-export": "off", // Allow single Named-export
+    "no-console": "off",
 
     /**
      * @description rules of @typescript-eslint
