@@ -1,0 +1,10 @@
+{
+  "email.subject": "Code de confirmation :",
+  "email.title": "Votre code de confirmation",
+  "email.subTitle1": "Merci de d'utiliser notre service. Nous sommes ravis de vous compter parmi nous !",
+  "email.subTitle2": "Saisissez le code suivant dans la fenêtre où vous avez commencé à vous connecter à votre compte :",
+  "email.disclaimer": "Attention, cet e-mail contient des informations confidentielles sur votre compte. Ne le transférez à personne. Vous avez des questions sur la configuration de votre compte ? Envoyez-nous un e-mail à l’adresse",
+  "email.footerCreatedBy": "Conçu par",
+  "email.footerCreatedByCompany": "nos soins",
+  "sms.subject": "Code de confirmation :"
+}

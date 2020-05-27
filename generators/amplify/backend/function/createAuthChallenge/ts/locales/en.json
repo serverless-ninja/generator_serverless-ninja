@@ -1,0 +1,10 @@
+{
+  "email.subject": "Confirmation code:",
+  "email.title": "Your confirmation code",
+  "email.subTitle1": "Thank you for using our service. We are delighted to have you among us!",
+  "email.subTitle2": "Enter the following code in the window where you started to connect to your account:",
+  "email.disclaimer": "Please note that this e-mail contains confidential information about your account. Do not forward it to anyone. Do you have questions about setting up your account? Send us an e-mail at",
+  "email.footerCreatedBy": "Designed by",
+  "email.footerCreatedByCompany": "us",
+  "sms.subject": "Confirmation code:"
+}
