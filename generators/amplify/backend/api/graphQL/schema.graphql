@@ -7,6 +7,10 @@ A Tenant can have 3 kinds of user:
 The tenant owner and guest can switch between the tenant they can see.
 The tenant end user cannot switch between tenant.
 A tenant can have only one owner.
+When generate token the identityClaim will be added as follow:
+    - Owner User: ownerTenantId
+    - Guest User: guestTenantId
+    - End User: tenantId
 The tenant could contains all project settings. (eg: payment, api integrations, ect ...).
 """
 type Tenant
@@ -45,11 +49,11 @@ type Tenant
 }
 
 """
-The current tenant choose by the owner user and guest user. The end user cannot switch between tenant.
+The current tenant choose by the Owner user and Guest user. The End user cannot switch between tenant.
 This will be used during the token generation to add custom attributes to the id token.
 If the preferences does not exists, it will be created during the token generation.
 """
-type TenantUserPreferences
+type TenantUserPreference
   @model
   @key(fields: ["userId"])
   @auth(
@@ -110,7 +114,7 @@ The owner and guest user can manage the end user
 """
 type EndUser
   @model(mutations: null, subscriptions: null)
-  @key(fields: ["tenantId", "userId"])
+  @key(fields: ["userId"])
   @key(name: "EndUserByTenant", fields: ["tenantId", "updatedAt"], queryField: "getEndUserByTenant")
   @auth(
     rules: [
@@ -144,7 +148,7 @@ type Pokemon
   @auth(
     rules: [
       # Allow the user to manage the pokemon for the tenant it belongs to
-      { allow: owner, ownerField: "tenantId", identityClaim: "tenantId", operations: [create, update, delete, read] }
+      { allow: owner, identityClaim: "tenantId", ownerField: "tenantId", operations: [create, update, delete, read] }
     ]
   ) {
   id: ID!
