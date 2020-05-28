@@ -15,7 +15,7 @@ The tenant could contains all project settings. (eg: payment, api integrations, 
 """
 type Tenant
   @model
-  @key(name: "tenantByUpdateAt", fields: ["id", "updatedAt"], queryField: "getTenantByUpdateAt")
+  @key(name: "tenantByUserAndUpdateAt", fields: ["userId", "updatedAt"], queryField: "getTenantByUserAndUpdateAt")
   @auth(
     rules: [
       # Allow the ADMIN to do all
@@ -37,7 +37,7 @@ type Tenant
   """
   The cognito user details (email, phone, ...)
   """
-  cognitoUser: CognitoUser @function(name: "getCognitoUser-${env}")
+  cognitoUser: CognitoUser @function(name: "SERVERLESSNINJA_GetCognitoUser-${env}")
   """
   The tenant title
   """
@@ -80,7 +80,7 @@ If you are guest of the tenant, you can see the others guest users.
 type GuestUser
   @model(mutations: null, subscriptions: null)
   @key(fields: ["tenantId", "userId"])
-  @key(name: "GuestUserByTenant", fields: ["tenantId", "updatedAt"], queryField: "getGuestUserByTenant")
+  @key(name: "GuestUserByUserId", fields: ["userId", "updatedAt"], queryField: "getGuestUserByUserId")
   @auth(
     rules: [
       # Allow the owner of tenant to do all
@@ -100,11 +100,15 @@ type GuestUser
   """
   The cognito user details (email, phone, ...)
   """
-  cognitoUser: CognitoUser @function(name: "getCognitoUser-${env}")
+  cognitoUser: CognitoUser @function(name: "SERVERLESSNINJA_GetCognitoUser-${env}")
   """
   The last updated Date
   """
   updatedAt: AWSDateTime
+  """
+  The tenant for this guest user
+  """
+  tenant: @connection(fields: ["tenantId"])
 }
 
 """
@@ -135,7 +139,7 @@ type EndUser
   """
   The cognito user details (email, phone, ...)
   """
-  cognitoUser: CognitoUser @function(name: "getCognitoUser-${env}")
+  cognitoUser: CognitoUser @function(name: "SERVERLESSNINJA_GetCognitoUser-${env}")
   """
   The last updated Date
   """
@@ -202,10 +206,10 @@ input DeleteEndUserInput {
 }
 
 type Mutation {
-  createGuestUser(input: CreateGuestUserInput!): GuestUser @function(name: "manageGuestUser-${env}")
-  updateGuestUser(input: UpdateGuestUserInput!): GuestUser @function(name: "manageGuestUser-${env}")
-  deleteGuestUser(input: DeleteGuestUserInput!): GuestUser @function(name: "manageGuestUser-${env}")
-  createEndUser(input: CreateEndUserInput!): EndUser @function(name: "manageEndUser-${env}")
-  updateEndUser(input: UpdateEndUserInput!): EndUser @function(name: "manageEndUser-${env}")
-  deleteEndUser(input: DeleteEndUserInput!): EndUser @function(name: "manageEndUser-${env}")
+  createGuestUser(input: CreateGuestUserInput!): GuestUser @function(name: "SERVERLESSNINJA_ManageGuestUser-${env}")
+  updateGuestUser(input: UpdateGuestUserInput!): GuestUser @function(name: "SERVERLESSNINJA_ManageGuestUser-${env}")
+  deleteGuestUser(input: DeleteGuestUserInput!): GuestUser @function(name: "SERVERLESSNINJA_ManageGuestUser-${env}")
+  createEndUser(input: CreateEndUserInput!): EndUser @function(name: "SERVERLESSNINJA_ManageEndUser-${env}")
+  updateEndUser(input: UpdateEndUserInput!): EndUser @function(name: "SERVERLESSNINJA_ManageEndUser-${env}")
+  deleteEndUser(input: DeleteEndUserInput!): EndUser @function(name: "SERVERLESSNINJA_ManageEndUser-${env}")
 }
