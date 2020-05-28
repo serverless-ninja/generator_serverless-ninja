@@ -108,7 +108,7 @@ type GuestUser
   """
   The tenant for this guest user
   """
-  tenant: @connection(fields: ["tenantId"])
+  tenant: Tenant @connection(fields: ["tenantId"])
 }
 
 """
