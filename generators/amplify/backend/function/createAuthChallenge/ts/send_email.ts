@@ -1,5 +1,5 @@
 import { Pinpoint } from 'aws-sdk';
-import { __l } from 'i18n';
+import { __ as t } from 'i18n';
 
 const logoUrl = 'https://www.your-service.com/icons/icon-48x48.png';
 const emailSupport = 'contact@your-service.com';
@@ -22,13 +22,13 @@ const emailTemplate = (otpCode: string) => {
                                           <div style="max-width:600px; margin:0px auto">
                                               <img style="width:38px; height:38px; margin:0px 0px 15px; padding-right:30px; padding-left:30px;" src="${logoUrl}" width="38" height="38">
                                               <h1 style="font-size:30px; padding-right:30px; padding-left:30px">
-                                                  ${__l('email.title')}
+                                                  ${t('email.title')}
                                               </h1>
                                               <p style="font-size:17px;padding-right:30px;padding-left:30px">
-                                                  ${__l('email.subTitle1')}
+                                                  ${t('email.subTitle1')}
                                               </p>
                                               <p style="font-size:17px;padding-right:30px;padding-left:30px">
-                                                  ${__l('email.subTitle2')}
+                                                  ${t('email.subTitle2')}
                                               </p>
                                               <div style="padding-right:30px; padding-left:30px; margin:32px 0px 40px">
                                                   <center>
@@ -44,7 +44,7 @@ const emailTemplate = (otpCode: string) => {
                                                   </center>
                                               </div>
                                               <p style="font-size:17px; padding-right:30px; padding-left:30px">
-                                                  ${__l('email.disclaimer')} <a style="color:rgb(5,118,185)" href="mailto:${emailSupport}" target="_blank">${emailSupport}</a>
+                                                  ${t('email.disclaimer')} <a style="color:rgb(5,118,185)" href="mailto:${emailSupport}" target="_blank">${emailSupport}</a>
                                               </p>
                                           </div>
                                       </td>
@@ -62,9 +62,9 @@ const emailTemplate = (otpCode: string) => {
                                                           <tr>
                                                               <td>
                                                                   <span style="display:block; color:rgb(67,66,69); font-size:15px">
-                                                                      ${__l('email.footerCreatedBy')}
+                                                                      ${t('email.footerCreatedBy')}
                                                                       <a href="${webSiteUrl}" style="text-decoration:none; color:rgb(67,66,69)" target="_blank">
-                                                                          ${__l('email.footerCreatedByCompany')}
+                                                                          ${t('email.footerCreatedByCompany')}
                                                                       </a>
                                                                   </span>
                                                               </td>
@@ -89,11 +89,11 @@ const emailTemplate = (otpCode: string) => {
 
 const emailTemplateText = (otpCode: string) => {
   return `
-    ${__l('email.title')}\n\n
-    ${__l('email.subTitle1')}\n
-    ${__l('email.subTitle2')}\n\n\n
+    ${t('email.title')}\n\n
+    ${t('email.subTitle1')}\n
+    ${t('email.subTitle2')}\n\n\n
     ${otpCode}\n\n\n
-    ${__l('email.disclaimer')} ${emailSupport}\n
+    ${t('email.disclaimer')} ${emailSupport}\n
   `;
 };
 
@@ -112,7 +112,7 @@ export const sendEmail = async (emailAddress: string, secretLoginCode: string, p
           SimpleEmail: {
             Subject: {
               Charset: 'UTF-8',
-              Data: `${__l('email.subject')} ${secretLoginCode}`,
+              Data: `${t('email.subject')} ${secretLoginCode}`,
             },
             HtmlPart: {
               Charset: 'UTF-8',

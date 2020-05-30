@@ -1,5 +1,5 @@
 import { Pinpoint } from 'aws-sdk';
-import { __l } from 'i18n';
+import { __ as t } from 'i18n';
 
 export const sendSms = async (phoneNumber: string, secretLoginCode: string, poinpointProjectID: string, region: string): Promise<void> => {
   const pinpoint = new Pinpoint({ region });
@@ -13,7 +13,7 @@ export const sendSms = async (phoneNumber: string, secretLoginCode: string, poin
       },
       MessageConfiguration: {
         SMSMessage: {
-          Body: `${__l('sms.subject')} ${secretLoginCode}`,
+          Body: `${t('sms.subject')} ${secretLoginCode}`,
           MessageType: 'TRANSACTIONAL',
         },
       },
