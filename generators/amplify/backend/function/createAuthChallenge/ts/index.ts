@@ -40,7 +40,7 @@ export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserP
         // This is sent back to the client app, so they know if it's email or phone challenge
         Object.assign(event.response, { publicChallengeParameters: { phone: phoneNumber } });
         // Add the secret login code to the private challenge parameters so it can be verified by the "Verify Auth Challenge Response" trigger
-        Object.assign(event.response, { privateChallengeParameters: secretLoginCode });
+        Object.assign(event.response, { privateChallengeParameters: { secretLoginCode } });
         // Add the secret login code to the session so it is available in the next
         Object.assign(event.response, { challengeMetadata: `CODE-${secretLoginCode}` });
       }
@@ -54,7 +54,7 @@ export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserP
         // This is sent back to the client app, so they know if it's email or phone challenge
         Object.assign(event.response, { publicChallengeParameters: { email: emailAddress } });
         // Add the secret login code to the private challenge parameters so it can be verified by the "Verify Auth Challenge Response" trigger
-        Object.assign(event.response, { privateChallengeParameters: secretLoginCode });
+        Object.assign(event.response, { privateChallengeParameters: { secretLoginCode } });
         // Add the secret login code to the session so it is available in the next
         Object.assign(event.response, { challengeMetadata: `CODE-${secretLoginCode}` });
       }
