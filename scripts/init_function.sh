@@ -5,7 +5,7 @@
     sleep 1; printf "\n"; `# Please select the Lambda Function you would want to update: first one` \
     sleep 1; echo "Y"; printf "\n"; `# Do you want to update permissions granted to this Lambda function to perform on other resources in your project? Yes` \
     sleep 1; echo -n $'\e'\[B; echo -n $'\e'\[B; printf " "; printf "\n"; `# Select the category: analytics` \
-    sleep 1; echo "a"; printf "\n" `# Select the operations you want to permit for adamaPinPoint? create, read, update, delete` \
+    sleep 1; echo "a"; printf "\n"; `# Select the operations you want to permit for adamaPinPoint? create, read, update, delete` \
     sleep 1; echo "N"; printf "\n"; `# Do you want to invoke this function on a recurring schedule?: No` \
     sleep 1; echo "N"; printf "\n"; `# Do you want to edit the local lambda function now?: No` \
 ) | amplify update function
@@ -87,7 +87,7 @@ echo "`npx jq '.Resources.AmplifyResourcesPolicy = {
     sleep 1; printf "\n"; `# Do you want to access other resources created in this project from your Lambda function? Yes` \
     sleep 1; echo -n $'\e'\[B; printf " "; printf "\n"; `# Select the category: auth` \
     sleep 1; echo -n $'\e'\[B; printf " "; printf "\n"; `# Auth has 2 resources in this project. Select the one you would like your Lambda to access: cognito` \
-    sleep 1; echo "a"; printf "\n" `# Select the operations you want to permit for PinPoint? create, read, update, delete` \
+    sleep 1; echo "a"; printf "\n"; `# Select the operations you want to permit for PinPoint? create, read, update, delete` \
     sleep 1; echo "N"; printf "\n"; `# Do you want to invoke this function on a recurring schedule?: No` \
     sleep 1; echo "N"; printf "\n"; `# Do you want to edit the local lambda function now?: No` \
 ) | amplify add function
@@ -175,7 +175,7 @@ cd ../../../../../
     sleep 1; echo -n $'\e'\[B; printf "\n"; `# Choose the function template that you want to use: Hello World` \
     sleep 1; printf "\n"; `# Do you want to access other resources created in this project from your Lambda function? Yes` \
     sleep 1; echo -n $'\e'\[B; echo -n $'\e'\[B; echo -n $'\e'\[B; printf " "; printf "\n"; `# Select the category: storage` \
-    sleep 1; echo -n $'\e'\[B; printf " "; echo -n $'\e'\[B; printf " ";  echo -n $'\e'\[B; printf " ";  echo -n $'\e'\[B; printf " "; printf "\n"; `# Storage has 6 resources in this project: EndUser:@model` \
+    sleep 1; echo -n $'\e'\[B; printf " "; echo -n $'\e'\[B; printf " "; echo -n $'\e'\[B; printf " "; echo -n $'\e'\[B; printf " "; printf "\n"; `# Storage has 6 resources in this project: EndUser:@model` \
     sleep 1; echo "a"; printf "\n"; `# Select the operations you want to permit for Tenant:@model? create, read, update, delete` \
     sleep 1; echo "a"; printf "\n"; `# Select the operations you want to permit for TenantUserPreferences:@model? create, read, update, delete` \
     sleep 1; echo "a"; printf "\n"; `# Select the operations you want to permit for GuestUser:@model? create, read, update, delete` \
