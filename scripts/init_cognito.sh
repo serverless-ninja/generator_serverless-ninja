@@ -18,7 +18,7 @@
     sleep 1; echo -n $'\e'\[B; printf "\n"; `# Email based user registration/forgot password? Disabled` \
     sleep 1; echo "Your verification code is {####}"; `# Please specify an SMS verification message` \
     sleep 1; printf "\n"; `# Do you want to override the default password policy for this User Pool? N` \
-    sleep 1; echo "a"; echo "i"; printf "\n" `# What attributes are required for signing up? None` \
+    sleep 1; echo -n $'\e'\[B; echo -n $'\e'\[B;  printf ' '; printf "\n"; `# What attributes are required for signing up? None` \
     sleep 1; echo "30"; `#Specify the app's refresh token expiration period (in days): (30)` \
     sleep 1; printf "\n"; `# Do you want to specify the user attributes this app can read and write? N` \
     sleep 1; printf "\n"; `# Do you want to enable any of the following capabilities?` \
