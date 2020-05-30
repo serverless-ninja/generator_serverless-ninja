@@ -1,5 +1,6 @@
 import { CognitoUserPoolTriggerEvent, CognitoUserPoolTriggerHandler, Context } from 'aws-lambda';
 import { randomDigits } from 'crypto-secure-random-digit';
+import { configure, setLocale } from 'i18n';
 import { sendEmail } from './send_email';
 import { sendSms } from './send_sms';
 
@@ -10,19 +11,19 @@ if (!REGION) {
 }
 
 // Get Pinpoint Project ID from environment variable
-const PINPOINT_PROJECT_ID = process.env.ANALYTICS_SERVERLESSNINJA_ID;
+const PINPOINT_PROJECT_ID = process.env.ANALYTICS_NINJAPINPOINT_ID;
 if (!PINPOINT_PROJECT_ID) {
-  throw new Error("Function requires environment variable: 'ANALYTICS_SERVERLESSNINJA_ID'");
+  throw new Error("Function requires environment variable: 'ANALYTICS_NINJAPINPOINT_ID'");
 }
 
 export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserPoolTriggerEvent, context: Context) => {
-  i18n.configure({
+  configure({
     defaultLocale: 'en',
     directory: `${__dirname}/locales`,
   });
   // set the locale with user attributes
   if (Object.prototype.hasOwnProperty.call(event.request.userAttributes, 'locale')) {
-    i18n.setLocale(event.request.userAttributes.locale);
+    setLocale(event.request.userAttributes.locale);
   }
 
   // only for CUSTOM_CHALLENGE
