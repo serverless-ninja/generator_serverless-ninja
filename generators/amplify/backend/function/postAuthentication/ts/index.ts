@@ -1,7 +1,12 @@
 import { Callback, CognitoUserPoolTriggerEvent, CognitoUserPoolTriggerHandler, Context } from 'aws-lambda';
 import { CognitoIdentityServiceProvider } from 'aws-sdk';
 
-const cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider();
+const { REGION } = process.env;
+if (!REGION) {
+  throw new Error("Function requires environment variable: 'REGION'");
+}
+
+const cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider({ region: REGION });
 
 export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserPoolTriggerEvent, context: Context, callback: Callback<CognitoUserPoolTriggerEvent>) => {
   if (event.userName) {

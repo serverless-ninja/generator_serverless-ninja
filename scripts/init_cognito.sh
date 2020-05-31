@@ -27,17 +27,14 @@
     `# Which triggers do you want to enable for Cognito: `
         sleep 1; echo -n $'\e'\[B; printf ' '; `# Create Auth Challenge` \
         sleep 1; echo -n $'\e'\[B; echo -n $'\e'\[B; printf ' '; `# Define Auth Challenge` \
-        sleep 1; echo -n $'\e'\[B; printf ' '; `# Post Authentication` \
-        sleep 1; echo -n $'\e'\[B; echo -n $'\e'\[B; echo -n $'\e'\[B; printf ' '; `# Pre Sign-up` \
+        sleep 1; echo -n $'\e'\[B; echo -n $'\e'\[B; echo -n $'\e'\[B; echo -n $'\e'\[B; printf ' '; `# Pre Sign-up` \
         sleep 1; echo -n $'\e'\[B; printf ' '; `# Verify Auth Challenge Response` \
         sleep 1; printf "\n";
     `# Create Auth Challenge, Define Auth Challenge, Post Authentication, Pre Sign-up, Verify Auth Challenge Response`
     sleep 1; echo -n $'\e'\[B; echo -n $'\e'\[B; echo -n $'\e'\[B; printf ' '; printf "\n"; `# What functionality do you want to use for Create Auth Challenge: Create your own module` \
     sleep 1; echo -n $'\e'\[B; echo -n $'\e'\[B; echo -n $'\e'\[B; printf ' '; printf "\n"; `# What functionality do you want to use for Define Auth Challenge: Create your own module` \
-    sleep 1; echo -n $'\e'\[B; printf ' '; printf "\n"; `# What functionality do you want to use for Post Authentication: Create your own module` \
     sleep 1; echo -n $'\e'\[B; echo -n $'\e'\[B; echo -n $'\e'\[B; printf ' '; printf "\n"; `# What functionality do you want to use for Pre Sign-up: Create your own module` \
     sleep 1; echo -n $'\e'\[B; echo -n $'\e'\[B; echo -n $'\e'\[B; printf ' '; printf "\n"; `# What functionality do you want to use for Verify Auth Challenge Response: Create your own module` \
-    sleep 1; echo "n"; printf "\n"; `# Do you want to edit your custom function now? No` \
     sleep 1; echo "n"; printf "\n"; `# Do you want to edit your custom function now? No` \
     sleep 1; echo "n"; printf "\n"; `# Do you want to edit your custom function now? No` \
     sleep 1; echo "n"; printf "\n"; `# Do you want to edit your custom function now? No` \
@@ -53,7 +50,7 @@ npm install crypto-secure-random-digit i18n
 cd ..
 mkdir ts
 cd ts
-../../../../../init_function_typescript.sh
+../../../../../setup_function_typescript.sh
 npm install crypto-secure-random-digit i18n
 npm install --save-dev @types/i18n copyfiles
 curl -o index.ts https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/amplify/backend/function/createAuthChallenge/ts/index.ts
@@ -78,20 +75,8 @@ curl -o event.json https://raw.githubusercontent.com/serverless-ninja/generator_
 cd ..
 mkdir ts
 cd ts
-../../../../../init_function_typescript.sh
+../../../../../setup_function_typescript.sh
 curl -o index.ts https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/amplify/backend/function/defineAuthChallenge/ts/index.ts
-npm run tsc
-cd ../../../../../
-
-# Post Authentication
-cd "amplify/backend/function/${PROJECT_NAME}CognitoPostAuthentication/src"
-rm *.js *.json
-curl -o event.json https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/amplify/backend/function/postAuthentication/src/event.json
-cd ..
-mkdir ts
-cd ts
-../../../../../init_function_typescript.sh
-curl -o index.ts https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/amplify/backend/function/postAuthentication/ts/index.ts
 npm run tsc
 cd ../../../../../
 
@@ -102,7 +87,7 @@ curl -o event.json https://raw.githubusercontent.com/serverless-ninja/generator_
 cd ..
 mkdir ts
 cd ts
-../../../../../init_function_typescript.sh
+../../../../../setup_function_typescript.sh
 curl -o index.ts https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/amplify/backend/function/preSignup/ts/index.ts
 npm run tsc
 cd ../../../../../
@@ -114,7 +99,7 @@ curl -o event.json https://raw.githubusercontent.com/serverless-ninja/generator_
 cd ..
 mkdir ts
 cd ts
-../../../../../init_function_typescript.sh
+../../../../../setup_function_typescript.sh
 curl -o index.ts https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/amplify/backend/function/verifyAuthChallengeResponse/ts/index.ts
 npm run tsc
 cd ../../../../../

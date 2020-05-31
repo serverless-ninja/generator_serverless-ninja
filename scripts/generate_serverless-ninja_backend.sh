@@ -33,3 +33,6 @@ curl -o .editorconfig https://raw.githubusercontent.com/serverless-ninja/generat
 
 # Init Function
 ./init_function.sh
+
+# Update Function
+./upate_function.sh
