@@ -14,3 +14,12 @@
 
 curl -o "amplify/backend/api/${PROJECT_NAME}GraphQL/schema.graphql" https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/amplify/backend/api/graphQL/schema.graphql
 npx replace-in-file /SERVERLESSNINJA_/g "${PROJECT_NAME}" "amplify/backend/api/${PROJECT_NAME}GraphQL/schema.graphql" --isRegex
+
+( \
+    sleep 1; echo -n $'\e'\[B; printf "\n"; `# Choose the code generation language target: typescript` \
+    sleep 1; printf "\n"; `# Enter the file name pattern of graphql queries, mutations and subscriptions: src/graphql/**/*.ts` \
+    sleep 1; printf "\n"; `# Do you want to generate/update all possible GraphQL? Yes` \
+    sleep 1; printf "\n"; `# Enter maximum statement depth? 2` \
+    sleep 1; printf "\n"; `# Enter the file name for the generated code? src/API.ts` \
+    sleep 1; printf "\n"; `# Do you want to generate code for your newly created GraphQL API? Yes` \
+) | amplify codegen add
