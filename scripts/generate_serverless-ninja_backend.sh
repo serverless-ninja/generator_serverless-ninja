@@ -40,3 +40,6 @@ curl -o .editorconfig https://raw.githubusercontent.com/serverless-ninja/generat
 # Download the function code
 ./download_code.sh
 
+# Add the build function in package.json (https://docs.amplify.aws/cli/function/build-options)
+./add_build_package.sh
+
