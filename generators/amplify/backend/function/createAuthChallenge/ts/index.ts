@@ -11,9 +11,9 @@ if (!REGION) {
 }
 
 // Get Pinpoint Project ID from environment variable
-const PINPOINT_PROJECT_ID = process.env.ANALYTICS_NINJAPINPOINT_ID;
+const PINPOINT_PROJECT_ID = process.env.ANALYTICS_SERVERLESSNINJA_ID;
 if (!PINPOINT_PROJECT_ID) {
-  throw new Error("Function requires environment variable: 'ANALYTICS_NINJAPINPOINT_ID'");
+  throw new Error("Function requires environment variable: 'ANALYTICS_SERVERLESSNINJA_ID'");
 }
 
 export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserPoolTriggerEvent, context: Context) => {
@@ -69,7 +69,7 @@ export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserP
         if (previousSecretLoginCodeRegexExecArray !== null && previousSecretLoginCodeRegexExecArray.length === 2) {
           // we get the previous secret code and resend it
           const previousSecretLoginCode = previousSecretLoginCodeRegexExecArray[1];
-          Object.assign((event.response, { privateChallengeParameters: { secretLoginCode: previousSecretLoginCode } }));
+          Object.assign(event.response, { privateChallengeParameters: { secretLoginCode: previousSecretLoginCode } });
           Object.assign(event.response, { challengeMetadata: `CODE-${previousSecretLoginCode}` });
           // we send back the phone or email to client
           if ('cognito:phone_number_alias' in event.request.userAttributes) {
