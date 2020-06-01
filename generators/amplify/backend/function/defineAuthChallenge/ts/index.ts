@@ -11,17 +11,18 @@ export const handler: CognitoUserPoolTriggerHandler = (event: CognitoUserPoolTri
     if (event.request.session.slice(-1)[0].challengeName === 'CUSTOM_CHALLENGE') {
       // reply that we are in CUSTOM_CHALLENGE context
       Object.assign(event.response, { challengeName: 'CUSTOM_CHALLENGE' });
-      // can try to answer the custom challenge only 3 times (if user do mistake when copy the secret code)
+      // first we check if the last answer is correct
+      if (event.request.session.slice(-1)[0].challengeResult === true) {
+        Object.assign(event.response, { issueTokens: true });
+        Object.assign(event.response, { failAuthentication: false });
+        context.done(undefined, event);
+        return;
+      }
+      // can try to answer the custom challenge only 3 times
       if (event.request.session.length < 3) {
-        // if the last answer is correct, we issue the token and go to the next step
-        if (event.request.session.slice(-1)[0].challengeResult === true) {
-          Object.assign(event.response, { issueTokens: true });
-          Object.assign(event.response, { failAuthentication: false });
-        } else {
-          // wrong answer, so we let the user answer again
-          Object.assign(event.response, { issueTokens: false });
-          Object.assign(event.response, { failAuthentication: false });
-        }
+        // wrong answer, so we let the user answer again
+        Object.assign(event.response, { issueTokens: false });
+        Object.assign(event.response, { failAuthentication: false });
         context.done(undefined, event);
         return;
       }
