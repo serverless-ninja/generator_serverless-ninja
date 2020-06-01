@@ -146,22 +146,6 @@ type EndUser
   updatedAt: AWSDateTime
 }
 
-type Pokemon
-  @model
-  @key(name: "PokemonByTenant", fields: ["tenantId", "updatedAt"], queryField: "getPokemonByTenant")
-  @auth(
-    rules: [
-      # Allow the user to manage the pokemon for the tenant it belongs to
-      { allow: owner, identityClaim: "tenantId", ownerField: "tenantId", operations: [create, update, delete, read] }
-    ]
-  ) {
-  id: ID!
-  name: String!
-  picture: S3Object!
-  tenantId: ID!
-  updatedAt: AWSDateTime
-}
-
 type CognitoUser {
   email: String
   phone: String
