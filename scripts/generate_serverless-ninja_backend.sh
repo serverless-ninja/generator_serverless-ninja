@@ -43,3 +43,7 @@ curl -o .editorconfig https://raw.githubusercontent.com/serverless-ninja/generat
 # Add the build function in package.json (https://docs.amplify.aws/cli/function/build-options)
 ./add_build_package.sh
 
+# Add the app schema
+curl -o "amplify/backend/api/${PROJECT_NAME}GraphQL/schema/pokemon.graphql" https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/amplify/backend/api/graphQL/schema/pokemon.graphql
+
+
