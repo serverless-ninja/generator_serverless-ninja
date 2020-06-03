@@ -16,6 +16,10 @@ Then you can try the function by doing:
 
 `amplify mock XXXX`
 
+# Deplou
+
+`amplify push --yes`
+
 # Choose to activate SMS and email channel
 
 `amplify console analytics`

@@ -1,0 +1,24 @@
+{
+  "name": "cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^14.0.6",
+    "@types/yargs": "^15.0.5",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "@aws-amplify/cli": "^4.21.0",
+    "@rauschma/stringio": "^1.4.0",
+    "mocha": "^7.2.0",
+    "yargs": "^15.3.1"
+  }
+}
