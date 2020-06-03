@@ -11,7 +11,7 @@ const cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider({ regi
 export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserPoolTriggerEvent, context: Context, callback: Callback<CognitoUserPoolTriggerEvent>) => {
   if (event.userName) {
     // if account created with phone
-    if ('cognito:phone_number_alias' in event.request.userAttributes) {
+    if ('phone_number' in event.request.userAttributes) {
       const params: CognitoIdentityServiceProvider.AdminUpdateUserAttributesRequest = {
         UserPoolId: event.userPoolId,
         UserAttributes: [
@@ -25,7 +25,7 @@ export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserP
       await cognitoIdentityServiceProvider.adminUpdateUserAttributes(params).promise();
     }
     // if account created with email
-    if ('cognito:email_alias' in event.request.userAttributes) {
+    if ('email' in event.request.userAttributes) {
       const params: CognitoIdentityServiceProvider.AdminUpdateUserAttributesRequest = {
         UserPoolId: event.userPoolId,
         UserAttributes: [

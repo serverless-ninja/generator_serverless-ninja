@@ -30,11 +30,11 @@ export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserP
   if (event.request.challengeName === 'CUSTOM_CHALLENGE') {
     // if we are in the custom challenge, and no session exists
     if (event.request.session === undefined || event.request.session.length === 0) {
+      // we create a 6 digits code
+      const secretLoginCode = randomDigits(6).join('');
       // if account created with phone number
-      if ('cognito:phone_number_alias' in event.request.userAttributes) {
-        const phoneNumber = event.request.userAttributes['cognito:phone_number_alias'];
-        // we create a 6 digits code
-        const secretLoginCode = randomDigits(6).join('');
+      if ('phone_number' in event.request.userAttributes) {
+        const phoneNumber = event.request.userAttributes.phone_number;
         // send SMS with the code
         await sendSms(phoneNumber, secretLoginCode, PINPOINT_PROJECT_ID, REGION);
         // This is sent back to the client app, so they know if it's email or phone challenge
@@ -45,12 +45,11 @@ export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserP
         Object.assign(event.response, { challengeMetadata: `CODE-${secretLoginCode}` });
       }
       // if account created with email
-      if ('cognito:email_alias' in event.request.userAttributes) {
-        const emailAddress = event.request.userAttributes['cognito:email_alias'];
-        // we create a 6 digits code
-        const secretLoginCode = randomDigits(6).join('');
+      if ('email' in event.request.userAttributes) {
+        // if identities (means we have merge with social oauth account and we can use email)
+        const emailAddress = event.request.userAttributes.email;
         // send email with the code
-        await sendEmail(emailAddress, secretLoginCode, PINPOINT_PROJECT_ID, REGION).catch();
+        await sendEmail(emailAddress, secretLoginCode, PINPOINT_PROJECT_ID, REGION);
         // This is sent back to the client app, so they know if it's email or phone challenge
         Object.assign(event.response, { publicChallengeParameters: { email: emailAddress } });
         // Add the secret login code to the private challenge parameters so it can be verified by the "Verify Auth Challenge Response" trigger
@@ -72,12 +71,12 @@ export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserP
           Object.assign(event.response, { privateChallengeParameters: { secretLoginCode: previousSecretLoginCode } });
           Object.assign(event.response, { challengeMetadata: `CODE-${previousSecretLoginCode}` });
           // we send back the phone or email to client
-          if ('cognito:phone_number_alias' in event.request.userAttributes) {
-            const phoneNumber = event.request.userAttributes['cognito:phone_number_alias'];
+          if ('phone_number' in event.request.userAttributes) {
+            const phoneNumber = event.request.userAttributes['phone_number'];
             Object.assign(event.response, { publicChallengeParameters: { phone: phoneNumber } });
           }
-          if ('cognito:email_alias' in event.request.userAttributes) {
-            const emailAddress = event.request.userAttributes['cognito:email_alias'];
+          if ('email' in event.request.userAttributes) {
+            const emailAddress = event.request.userAttributes['email'];
             Object.assign(event.response, { publicChallengeParameters: { email: emailAddress } });
           }
         }
