@@ -23,7 +23,7 @@
     sleep 1; printf "\n"; `# Do you want to specify the user attributes this app can read and write? N` \
     sleep 1; printf "\n"; `# Do you want to enable any of the following capabilities?` \
     sleep 1; echo -n $'\e'\[B; printf "\n"; `# Do you want to use an OAuth flow? No` \
-    sleep 1; echo "Y"; printf "\n"; `# Do you want to configure Lambda Triggers for Cognito? Yes` \
+    sleep 1; printf "\n"; `# Do you want to configure Lambda Triggers for Cognito? Yes` \
     `# Which triggers do you want to enable for Cognito: `
         sleep 1; echo -n $'\e'\[B; printf ' '; `# Create Auth Challenge` \
         sleep 1; echo -n $'\e'\[B; echo -n $'\e'\[B; printf ' '; `# Define Auth Challenge` \
