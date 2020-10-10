@@ -4,8 +4,6 @@ A Tenant can have 3 kinds of user:
     - The tenant owner: the user who create the tenant and can do everything.
     - The tenant guest: a user which has been invited by the owner to manage the tenant entities.
     - The tenant end user: a user which has been invited by the owner or the guest and can use the tenant entities.
-The tenant owner and guest can switch between the tenant they can see.
-The tenant end user cannot switch between tenant.
 A tenant can have only one owner.
 When generate token the identityClaim will be added as follow:
     - Owner User: ownerTenantId
@@ -49,7 +47,8 @@ type Tenant
 }
 
 """
-The current tenant choose by the Owner user and Guest user. The End user cannot switch between tenant.
+The current tenant choose by an user.
+The users can switch between the tenant they can see.
 This will be used during the token generation to add custom attributes to the id token.
 If the preferences does not exists, it will be created during the token generation.
 """

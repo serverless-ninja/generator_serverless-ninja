@@ -22,23 +22,43 @@ npm init private
 ./init_api.sh
 
 # Init Function
-./init_function.sh
 
-# Update Function
-./update_function.sh
+## createAuthChallenge
+./createAuthChallenge/init_function.sh
+
+## defineAuthChallenge
+./defineAuthChallenge/init_function.sh
+
+## getCognitoUser
+./getCognitoUser/init_function.sh
+
+## manageEndUser
+./manageEndUser/init_function.sh
+
+## manageGuestUser
+./manageGuestUser/init_function.sh
+
+## postAuthentication
+./postAuthentication/init_function.sh
+
+## preSignup
+./preSignup/init_function.sh
+
+## preTokenGeneration
+./preTokenGeneration/init_function.sh
+
+## verifyAuthChallengeResponse
+./verifyAuthChallengeResponse/init_function.sh
 
 # Setup VSCode
 mkdir .vscode
 curl -o .vscode/extensions.json https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.vscode/extensions.json
 curl -o .vscode/settings.json https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.vscode/settings.json
 
-Add Prettier and Editorconfig configuration
+# Add Prettier and Editorconfig configuration
 curl -o .prettierrc https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.prettierrc
 curl -o .prettierignore https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.prettierignore
 curl -o .editorconfig https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.editorconfig
-
-# Download the function code
-./download_code.sh
 
 # Add the build function in package.json (https://docs.amplify.aws/cli/function/build-options)
 ./add_build_package.sh

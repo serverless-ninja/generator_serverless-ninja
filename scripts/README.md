@@ -16,7 +16,7 @@ Then you can try the function by doing:
 
 `amplify mock XXXX`
 
-# Deplou
+# Deploy
 
 `amplify push --yes`
 
