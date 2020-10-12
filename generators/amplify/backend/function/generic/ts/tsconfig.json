@@ -1,3 +1,4 @@
+
 {
   "compilerOptions": {
     "declaration": false,
@@ -12,9 +13,10 @@
     "noImplicitAny": true,
     "sourceMap": false,
     "strict": true,
+    "preserveConstEnums": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
     "baseUrl": ".",
-    "outDir": "../src"
-  },
-  "include": ["./**/*"],
-  "exclude": ["node_modules"]
+    "outDir": "../src",
+  }
 }

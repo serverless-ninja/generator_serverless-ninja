@@ -1,16 +1,20 @@
+# Download the scripts
+
+`curl https://codeload.github.com/serverless-ninja/generator_serverless-ninja/tar.gz/master | tar -xz --strip=1 generator_serverless-ninja-master/scripts`
+
 # Authorize the scripts
 
-`chmod +x *.sh`
+`chmod -R +x ./scripts`
 
 # Give the project name
 
-`export PROJECT_NAME="adama"`
+`export PROJECT_NAME="projectname"`
 
 Only number or letter and not very long and all in lower case
 
-Generate all backend
+## Generate all backend
 
-`./generate_serverless-ninja_backend.sh`
+`./scripts/generate_serverless-ninja_backend.sh`
 
 Then you can try the function by doing:
 

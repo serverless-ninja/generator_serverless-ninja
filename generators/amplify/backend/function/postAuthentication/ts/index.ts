@@ -1,4 +1,4 @@
-import { Callback, CognitoUserPoolTriggerEvent, CognitoUserPoolTriggerHandler, Context } from 'aws-lambda';
+import { Callback, Context, PostAuthenticationTriggerEvent, PostAuthenticationTriggerHandler } from 'aws-lambda';
 import { CognitoIdentityServiceProvider } from 'aws-sdk';
 
 const { REGION } = process.env;
@@ -8,7 +8,7 @@ if (!REGION) {
 
 const cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider({ region: REGION });
 
-export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserPoolTriggerEvent, context: Context, callback: Callback<CognitoUserPoolTriggerEvent>) => {
+export const handler: PostAuthenticationTriggerHandler = async (event: PostAuthenticationTriggerEvent, context: Context, callback: Callback<PostAuthenticationTriggerEvent>) => {
   if (event.userName) {
     // if account created with phone
     if ('phone_number' in event.request.userAttributes) {

@@ -134,6 +134,6 @@ export const sendEmail = async (emailAddress: string, secretLoginCode: string, p
       console.error(JSON.stringify(response.$response.error));
     }
   } catch (err) {
-    console.error(err, err.stack);
+    console.error(err);
   }
 };

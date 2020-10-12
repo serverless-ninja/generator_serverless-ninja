@@ -1,6 +1,6 @@
-import { CognitoUserPoolTriggerEvent, CognitoUserPoolTriggerHandler, Context } from 'aws-lambda';
+import { Context, VerifyAuthChallengeResponseTriggerEvent, VerifyAuthChallengeResponseTriggerHandler } from 'aws-lambda';
 
-export const handler: CognitoUserPoolTriggerHandler = (event: CognitoUserPoolTriggerEvent, context: Context) => {
+export const handler: VerifyAuthChallengeResponseTriggerHandler = (event: VerifyAuthChallengeResponseTriggerEvent, context: Context) => {
   Object.assign(event.response, { answerCorrect: false });
   if (event.request.privateChallengeParameters) {
     const expectedAnswer = event.request.privateChallengeParameters.secretLoginCode;

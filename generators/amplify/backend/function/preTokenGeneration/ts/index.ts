@@ -1,4 +1,4 @@
-import { Callback, CognitoUserPoolTriggerEvent, CognitoUserPoolTriggerHandler, Context } from 'aws-lambda';
+import { Callback, Context, PreTokenGenerationTriggerEvent, PreTokenGenerationTriggerHandler } from 'aws-lambda';
 import { DynamoDB } from 'aws-sdk';
 
 const { REGION } = process.env;
@@ -25,7 +25,7 @@ if (!ENDUSERTABLE_NAME) {
 
 const dynamoDB = new DynamoDB({ region: REGION });
 
-export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserPoolTriggerEvent, _context: Context, callback: Callback<CognitoUserPoolTriggerEvent>) => {
+export const handler: PreTokenGenerationTriggerHandler = async (event: PreTokenGenerationTriggerEvent, _context: Context, callback: Callback<PreTokenGenerationTriggerEvent>) => {
   const userId = event.userName;
   if (!userId) {
     throw new Error("Function requires to receive in event the username: 'event.userName'");

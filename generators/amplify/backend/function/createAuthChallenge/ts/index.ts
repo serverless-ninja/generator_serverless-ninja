@@ -1,4 +1,4 @@
-import { CognitoUserPoolTriggerEvent, CognitoUserPoolTriggerHandler, Context } from 'aws-lambda';
+import { Context, CreateAuthChallengeTriggerEvent, CreateAuthChallengeTriggerHandler } from 'aws-lambda';
 import { randomDigits } from 'crypto-secure-random-digit';
 import { configure, setLocale } from 'i18n';
 import { sendEmail } from './send_email';
@@ -16,7 +16,7 @@ if (!PINPOINT_PROJECT_ID) {
   throw new Error("Function requires environment variable: 'ANALYTICS_SERVERLESSNINJA_ID'");
 }
 
-export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserPoolTriggerEvent, context: Context) => {
+export const handler: CreateAuthChallengeTriggerHandler = async (event: CreateAuthChallengeTriggerEvent, context: Context) => {
   configure({
     defaultLocale: 'en',
     directory: `${__dirname}/locales`,

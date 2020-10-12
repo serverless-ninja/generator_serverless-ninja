@@ -1,7 +1,6 @@
-import { Callback, CognitoUserPoolTriggerEvent, CognitoUserPoolTriggerHandler, Context } from 'aws-lambda';
+import { Callback, Context, PreSignUpTriggerEvent, PreSignUpTriggerHandler } from 'aws-lambda';
 
-export const handler: CognitoUserPoolTriggerHandler = async (event: CognitoUserPoolTriggerEvent, context: Context, callback: Callback<CognitoUserPoolTriggerEvent>) => {
-  // confirm user
+export const handler: PreSignUpTriggerHandler = (event: PreSignUpTriggerEvent, context: Context, callback: Callback<PreSignUpTriggerEvent>) => {
   Object.assign(event.response, { autoConfirmUser: true });
   callback(null, event);
 };

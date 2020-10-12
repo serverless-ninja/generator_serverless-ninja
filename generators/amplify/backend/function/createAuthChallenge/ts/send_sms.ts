@@ -26,6 +26,6 @@ export const sendSms = async (phoneNumber: string, secretLoginCode: string, poin
       console.error(JSON.stringify(response.$response.error));
     }
   } catch (err) {
-    console.error(err, err.stack);
+    console.error(err);
   }
 };

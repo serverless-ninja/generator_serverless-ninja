@@ -1,6 +1,6 @@
-import { CognitoUserPoolTriggerEvent, CognitoUserPoolTriggerHandler, Context } from 'aws-lambda';
+import { Context, DefineAuthChallengeTriggerEvent, DefineAuthChallengeTriggerHandler } from 'aws-lambda';
 
-export const handler: CognitoUserPoolTriggerHandler = (event: CognitoUserPoolTriggerEvent, context: Context) => {
+export const handler: DefineAuthChallengeTriggerHandler = (event: DefineAuthChallengeTriggerEvent, context: Context) => {
   // if we don't have session, it's the first time we try to login so we propose the CUSTOM_CHALLENGE
   if (event.request.session === undefined || event.request.session.length === 0) {
     Object.assign(event.response, { issueTokens: false });

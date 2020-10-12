@@ -1,56 +1,101 @@
 #!/bin/bash
 
-# Update Amplify CLI
-npm i -g @aws-amplify/cli
+DIR="$(cd "$(dirname "$0")" && pwd)"
+
+#Update Amplify CLI
+# npm i -g @aws-amplify/cli
 
 # Init project
 npm init private
 
 # Init amplify
-./init_amplify.sh
+$DIR/init_amplify.sh
 
 # Init Cognito
-./init_cognito.sh
+$DIR/init_cognito.sh
 
 # Init Pinpoint
-./init_pinpoint.sh
+$DIR/init_pinpoint.sh
 
 # Init Storage
-./init_storage.sh
+$DIR/init_storage.sh
 
 # Init Api
-./init_api.sh
+$DIR/init_api.sh
 
 # Init Function
 
-## createAuthChallenge
-./createAuthChallenge/init_function.sh
-
-## defineAuthChallenge
-./defineAuthChallenge/init_function.sh
-
-## getCognitoUser
-./getCognitoUser/init_function.sh
+# getCognitoUser
+$DIR/function/getCognitoUser/init_function.sh
 
 ## manageEndUser
-./manageEndUser/init_function.sh
+$DIR/function/manageEndUser/init_function.sh
 
 ## manageGuestUser
-./manageGuestUser/init_function.sh
+$DIR/function/manageGuestUser/init_function.sh
 
 ## postAuthentication
-./postAuthentication/init_function.sh
+$DIR/function/postAuthentication/init_function.sh
 
 ## preSignup
-./preSignup/init_function.sh
+$DIR/function/preSignup/init_function.sh
 
 ## preTokenGeneration
-./preTokenGeneration/init_function.sh
+$DIR/function/preTokenGeneration/init_function.sh
+
+# Update Function
+
+# createAuthChallenge
+$DIR/function/createAuthChallenge/update_function.sh
+
+# ## getCognitoUser
+$DIR/function/getCognitoUser/update_function.sh
+
+## manageEndUser
+$DIR/function/manageEndUser/update_function.sh
+
+## manageGuestUser
+$DIR/function/manageGuestUser/update_function.sh
+
+## postAuthentication
+$DIR/function/postAuthentication/update_function.sh
+
+## preSignup
+$DIR/function/preSignup/update_function.sh
+
+## preTokenGeneration
+$DIR/function/preTokenGeneration/update_function.sh
+
+# Download Function
+
+# createAuthChallenge
+$DIR/function/createAuthChallenge/download_function.sh
+
+## defineAuthChallenge
+$DIR/function/defineAuthChallenge/download_function.sh
+
+# ## getCognitoUser
+$DIR/function/getCognitoUser/download_function.sh
+
+## manageEndUser
+$DIR/function/manageEndUser/download_function.sh
+
+## manageGuestUser
+$DIR/function/manageGuestUser/download_function.sh
+
+## postAuthentication
+$DIR/function/postAuthentication/download_function.sh
+
+## preSignup
+$DIR/function/preSignup/download_function.sh
+
+## preTokenGeneration
+$DIR/function/preTokenGeneration/download_function.sh
 
 ## verifyAuthChallengeResponse
-./verifyAuthChallengeResponse/init_function.sh
+$DIR/function/verifyAuthChallengeResponse/download_function.sh
 
-# Setup VSCode
+# # Setup VSCode
 mkdir .vscode
 curl -o .vscode/extensions.json https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.vscode/extensions.json
 curl -o .vscode/settings.json https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.vscode/settings.json
@@ -61,7 +106,7 @@ curl -o .prettierignore https://raw.githubusercontent.com/serverless-ninja/gener
 curl -o .editorconfig https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.editorconfig
 
 # Add the build function in package.json (https://docs.amplify.aws/cli/function/build-options)
-./add_build_package.sh
+$DIR/add_build_package.sh
 
 # Add the app schema
 curl -o "amplify/backend/api/${PROJECT_NAME}GraphQL/schema/pokemon.graphql" https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/amplify/backend/api/graphQL/schema/pokemon.graphql
