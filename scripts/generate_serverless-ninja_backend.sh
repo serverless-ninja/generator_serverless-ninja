@@ -110,3 +110,6 @@ $DIR/add_build_package.sh
 
 # Add the app schema
 curl -o "amplify/backend/api/${PROJECT_NAME}GraphQL/schema/pokemon.graphql" https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/amplify/backend/api/graphQL/schema/pokemon.graphql
+
+# Add the building script for amplify
+curl -o "amplify.yml" https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/amplify.yml

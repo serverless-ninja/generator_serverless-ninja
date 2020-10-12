@@ -1,0 +1,14 @@
+version: 1
+backend:
+  phases:
+    build:
+      commands:
+        - amplifyPush --simple
+frontend:
+  phases:
+    build:
+      commands: []
+  artifacts:
+    baseDirectory: /front/
+    files:
+      - '**/*'

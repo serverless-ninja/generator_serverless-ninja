@@ -1,11 +1,5 @@
 #!/bin/bash
 
-JAVASCRIPTCONFIG="{\
-\"SourceDir\":\"src\",\
-\"DistributionDir\":\"front\",\
-\"BuildCommand\":\"npm run-script build\",\
-\"StartCommand\":\"npm run-script start\"\
-}"
 AWSCLOUDFORMATIONCONFIG="{\
 \"configLevel\":\"project\",\
 \"useProfile\":true,\
@@ -13,13 +7,12 @@ AWSCLOUDFORMATIONCONFIG="{\
 }"
 AMPLIFY="{\
 \"projectName\":\"${PROJECT_NAME}\",\
-\"envName\":\"develop\",\
+\"envName\":\"developninja\",\
 \"defaultEditor\":\"code\"\
 }"
 FRONTEND="{\
 \"frontend\":\"javascript\",\
-\"framework\":\"none\",\
-\"config\":$JAVASCRIPTCONFIG\
+\"framework\":\"none\"\
 }"
 PROVIDERS="{\
 \"awscloudformation\":$AWSCLOUDFORMATIONCONFIG\
