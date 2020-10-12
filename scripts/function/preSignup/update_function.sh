@@ -22,7 +22,7 @@ expect "Do you want to update the Lambda function permissions to access other re
 send -- "Y"
 send -- "\r"
 
-# Select the category: storage
+# Select the category: auth
 expect "Select the category"
 send -- "\[B"
 send -- " "

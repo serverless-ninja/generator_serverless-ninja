@@ -66,15 +66,25 @@ $DIR/function/preSignup/update_function.sh
 ## preTokenGeneration
 $DIR/function/preTokenGeneration/update_function.sh
 
+Setup VSCode
+mkdir .vscode
+curl -o .vscode/extensions.json https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.vscode/extensions.json
+curl -o .vscode/settings.json https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.vscode/settings.json
+
+# Add Prettier and Editorconfig configuration
+curl -o .prettierrc https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.prettierrc
+curl -o .prettierignore https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.prettierignore
+curl -o .editorconfig https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.editorconfig
+
 # Download Function
 
-# createAuthChallenge
+## createAuthChallenge
 $DIR/function/createAuthChallenge/download_function.sh
 
 ## defineAuthChallenge
 $DIR/function/defineAuthChallenge/download_function.sh
 
-# ## getCognitoUser
+## getCognitoUser
 $DIR/function/getCognitoUser/download_function.sh
 
 ## manageEndUser
@@ -95,20 +105,8 @@ $DIR/function/preTokenGeneration/download_function.sh
 ## verifyAuthChallengeResponse
 $DIR/function/verifyAuthChallengeResponse/download_function.sh
 
-# # Setup VSCode
-mkdir .vscode
-curl -o .vscode/extensions.json https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.vscode/extensions.json
-curl -o .vscode/settings.json https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.vscode/settings.json
-
-# Add Prettier and Editorconfig configuration
-curl -o .prettierrc https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.prettierrc
-curl -o .prettierignore https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.prettierignore
-curl -o .editorconfig https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/.editorconfig
-
 # Add the build function in package.json (https://docs.amplify.aws/cli/function/build-options)
 $DIR/add_build_package.sh
 
 # Add the app schema
 curl -o "amplify/backend/api/${PROJECT_NAME}GraphQL/schema/pokemon.graphql" https://raw.githubusercontent.com/serverless-ninja/generator_serverless-ninja/master/generators/amplify/backend/api/graphQL/schema/pokemon.graphql
-
-

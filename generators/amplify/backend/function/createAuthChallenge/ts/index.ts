@@ -11,9 +11,9 @@ if (!REGION) {
 }
 
 // Get Pinpoint Project ID from environment variable
-const PINPOINT_PROJECT_ID = process.env.ANALYTICS_SERVERLESSNINJA_ID;
+const PINPOINT_PROJECT_ID = process.env.ANALYTICS_PROJECTNAMEPINPOINT_ID;
 if (!PINPOINT_PROJECT_ID) {
-  throw new Error("Function requires environment variable: 'ANALYTICS_SERVERLESSNINJA_ID'");
+  throw new Error("Function requires environment variable: 'ANALYTICS_PROJECTNAMEPINPOINT_ID'");
 }
 
 export const handler: CreateAuthChallengeTriggerHandler = async (event: CreateAuthChallengeTriggerEvent, context: Context) => {
@@ -72,11 +72,11 @@ export const handler: CreateAuthChallengeTriggerHandler = async (event: CreateAu
           Object.assign(event.response, { challengeMetadata: `CODE-${previousSecretLoginCode}` });
           // we send back the phone or email to client
           if ('phone_number' in event.request.userAttributes) {
-            const phoneNumber = event.request.userAttributes['phone_number'];
+            const phoneNumber = event.request.userAttributes.phone_number;
             Object.assign(event.response, { publicChallengeParameters: { phone: phoneNumber } });
           }
           if ('email' in event.request.userAttributes) {
-            const emailAddress = event.request.userAttributes['email'];
+            const emailAddress = event.request.userAttributes.email;
             Object.assign(event.response, { publicChallengeParameters: { email: emailAddress } });
           }
         }

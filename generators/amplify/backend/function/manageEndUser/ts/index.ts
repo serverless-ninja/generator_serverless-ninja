@@ -8,13 +8,13 @@ if (!REGION) {
   throw new Error("Function requires environment variable: 'REGION'");
 }
 
-const USERPOOL_ID = process.env.AUTH_POURBOIRCOGNITO_USERPOOLID;
+const USERPOOL_ID = process.env.AUTH_SERVERLESSNINJACOGNITO_USERPOOLID;
 if (!USERPOOL_ID) {
-  throw new Error("Function requires environment variable: 'AUTH_POURBOIRCOGNITO_USERPOOLID'");
+  throw new Error("Function requires environment variable: 'AUTH_SERVERLESSNINJACOGNITO_USERPOOLID'");
 }
-const USERTABLE_NAME = process.env.API_POURBOIRGRAPHQL_ENDUSERTABLE_NAME;
+const USERTABLE_NAME = process.env.API_SERVERLESSNINJAGRAPHQL_ENDUSERTABLE_NAME;
 if (!USERTABLE_NAME) {
-  throw new Error("Function requires environment variable: 'API_POURBOIRGRAPHQL_ENDUSERTABLE_NAME'");
+  throw new Error("Function requires environment variable: 'API_SERVERLESSNINJAGRAPHQL_ENDUSERTABLE_NAME'");
 }
 
 interface GraphqlEvent {

@@ -21,11 +21,13 @@ send -- "\r"
 # Select the category: auth
 expect "Select the category"
 send -- "\[B"
+send -- " "
 send -- "\r"
 
 # Auth has 2 resources in this project. Select the one you would like your Lambda to access: cognito
 expect "Auth has"
 send -- "\[B"
+send -- " "
 send -- "\r"
 
 # Select the operations you want to permit for Cognito? create, read, update, delete
