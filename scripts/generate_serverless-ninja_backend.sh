@@ -3,7 +3,7 @@
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
 #Update Amplify CLI
-# npm i -g @aws-amplify/cli
+npm i -g @aws-amplify/cli
 
 # Init project
 npm init private
